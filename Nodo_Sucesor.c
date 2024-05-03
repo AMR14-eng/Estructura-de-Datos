@@ -4,16 +4,17 @@ struct TreeNode* findSuccessor(struct TreeNode* root, struct TreeNode* node) {
         return NULL;
     }
 
-    // Si el nodo tiene un subárbol derecho, entonces el sucesor es el nodo más pequeño en ese subárbol
+    // Caso 1: Nodo dado tiene subárbol derecho
     if (node->right != NULL) {
         struct TreeNode* current = node->right;
         while (current->left != NULL) {
             current = current->left;
         }
+        printf("El sucesor de %d es %d\n", node->val, current->val);
         return current;
     }
 
-    // Si no tiene subárbol derecho, entonces buscamos desde la raíz hasta el nodo para encontrar el sucesor
+    // Caso 2: Nodo dado no tiene subárbol derecho
     struct TreeNode* successor = NULL;
     while (root != NULL) {
         if (node->val < root->val) {
@@ -24,6 +25,12 @@ struct TreeNode* findSuccessor(struct TreeNode* root, struct TreeNode* node) {
         } else {
             break;
         }
+    }
+
+    if (successor != NULL) {
+        printf("El sucesor de %d es %d\n", node->val, successor->val);
+    } else {
+        printf("No hay sucesor para %d\n", node->val);
     }
 
     return successor;
